@@ -68,6 +68,7 @@ async def item_shop(interaction: discord.Interaction, ):
                           description="give item shop.",
                           color=0x00ff00)
     embed.add_field(name="**Fortnite Item Shop**", value="", inline=False)
+    embed.set_thumbail(url="https://mtbr29.dev/test"
     embed.set_footer(
         text="/fn-item-shop",
         icon_url=
