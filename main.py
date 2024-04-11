@@ -209,7 +209,7 @@ import aiohttp
 import json
 from pymongo import MongoClient
 
-uri = f"mongodb+srv://mtbr29:s9bUacozh8yTfsB0@mtbr29.y4wregh.mongodb.net/?retryWrites=true&w=majority&appName=mtbr29"
+uri = "mongodb+srv://mtbr29:s9bUacozh8yTfsB0@mtbr29.y4wregh.mongodb.net/?retryWrites=true&w=majority&appName=mtbr29"
 
 @bot.tree.command(name='logout', description='Logs out from your epic games account!')
 async def logout(interaction: discord.Interaction):
@@ -234,25 +234,29 @@ async def logout(interaction: discord.Interaction):
         await interaction.response.send_message('An error occurred. Please try again.')
 
 
-
+import discord
+from discord.ext import commands
+import aiohttp
+import json
+from pymongo import MongoClient
 
 
 @bot.tree.command(name='login', description='Logins into your epic games account!')
 async def login(interaction: discord.Interaction, authcode: str = None):
   if authcode is None:
-    embed = discord.Embed(title="auth code", description="", color=0x00ff00)
+    embed = discord.Embed(title="Login Step", description="", color=0x00ff00)
     embed.add_field(
-      name="step 1: ",
+      name="**step 1 :** ",
       value=
-      "Login [here](https://www.epicgames.com/id/login).<a:loading:1206274680864903259> ",
+      "Login [here](https://www.epicgames.com/id/login)   <a:emoji_2:1227640300818661426> ",
       inline=False)
     embed.add_field(
-      name="step 2:",
+      name="**step 2 :**",
       value=
-      "Visit the [link here](https://www.epicgames.com/id/api/redirect?clientId=3446cd72694c4a4485d81b77adbb2141&responseType=code) above to get your login code.:link: ",
+      "Visit the [link here](https://www.epicgames.com/id/api/redirect?clientId=3446cd72694c4a4485d81b77adbb2141&responseType=code) above to get your login code.   :link: ",
       inline=False)
     embed.add_field(
-      name="step 3:",
+      name="**step 3 :**",
       value=
       "You should see a code after `?code=` like the picture.<a:llama:1181943210713550930> ",
       inline=False)
@@ -261,7 +265,7 @@ async def login(interaction: discord.Interaction, authcode: str = None):
       "https://media.discordapp.net/attachments/971328290067456000/1005656280758767767/unknown.png"
   )
     embed.set_footer(
-      text="/auth-code",
+      text="/login and authcode",
       icon_url=
       "https://cdn.discordapp.com/app-icons/118044643767.png?size=64"
   )
