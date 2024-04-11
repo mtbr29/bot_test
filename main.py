@@ -293,8 +293,7 @@ import aiohttp
 import json
 from pymongo import MongoClient
 
-uri = "mongodb+srv://wny51:jr5wsa@cluster0.n7ppuyq.mongodb.net/?retryWrites=true&w=majority"
-
+uri = "mongodb+srv://mtbr29:<password>@mtbr29.y4wregh.mongodb.net/?retryWrites=true&w=majority&appName=mtbr29"
 @bot.tree.command(name='logout', description='Logs out from your epic games account!')
 async def logout(interaction: discord.Interaction):
     try:
