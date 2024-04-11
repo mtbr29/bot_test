@@ -37,6 +37,8 @@ bot_owner_ids = [1026891696929255525]
 async def on_message(message):
   if message.content == "<@1180446437671178391>":
     await message.channel.send("hi,how are you!?")
+  elif message.content == "<@1180446437671178391> .help"
+    await message.channel.send("hi,how are you!?")
 
 
 @bot.event
