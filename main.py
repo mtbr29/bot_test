@@ -31,32 +31,6 @@ funFact = ["mtbr"]
 mongobd = os.getenv('mongobd')
 bot_owner_ids = [1026891696929255525]
 
-@bot.event
-async def on_raw_reaction_add(payload):
-    message_id = payload.message_id
-    if message_id == 758346892357664818:
-        guild_id = payload.guild_id
-        guild = discord.utils.find(lambda g: g.id == guild_id, bot.guilds)
-
-        if payload.emoji.name == '✅':
-            print('yoooo')
-            role = discord.utils.get(guild.roles, name='membre')
-        else:
-            role = discord.utils.get(guild.role, name=payload.emoji.name)
-
-        if role is not None:
-            member = payload.member
-            if member is not None:
-                await member.add_roles(role)
-                print("done")
-            else:
-                print("member not found")
-        else:
-            print("role not found")
-
-# Other event functions are left unchanged
-
-
 
 @bot.event
 async def on_message(message):
@@ -234,8 +208,8 @@ from discord.ext import commands
 import aiohttp
 import json
 from pymongo import MongoClient
-
-uri = f"mongodb+srv://mtbr29:{mongobd}@mtbr29.y4wregh.mongodb.net/?retryWrites=true&w=majority&appName=mtbr29"
+mongobd = os.getenv('mongobd')
+uri = f"mongodb+srv://mtbr29:"mongobd"@mtbr29.y4wregh.mongodb.net/?retryWrites=true&w=majority&appName=mtbr29"
 
 @bot.tree.command(name='logout', description='Logs out from your epic games account!')
 async def logout(interaction: discord.Interaction):
