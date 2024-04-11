@@ -28,7 +28,7 @@ tree = app_commands.CommandTree(client)
 
 funFact = ["mtbr"]
 
-TOKEN = os.getenv('TOKEN')
+mongobd = os.getenv('mongobd')
 bot_owner_ids = [1026891696929255525]
 
 @bot.event
@@ -58,68 +58,10 @@ async def on_raw_reaction_add(payload):
 
 
 
-
-@bot.event
-async def on_message_pong(message):
-  if message.content == "ping":
-    await message.channel.send("Pong🏓!")
-
-
 @bot.event
 async def on_message(message):
   if message.content == "<@1180446437671178391>":
     await message.channel.send("hi,how are you!?")
-
-
-@bot.event
-async def on__message(message):
-  if message.content == "<@1180446437671178391> help":
-    await message.channel.send("hi do /help!?")
-
-
-@bot.event
-async def on_message_aes(message):
-  if message.content == "<@1180446437671178391> z.fn-aes":
-    try:
-      # Make a GET request to the API
-      response = requests.get('https://fortnite-api.com/v2/aes')
-      response.raise_for_status(
-      )  # Raise an error if the request was not successful
-
-      data = response.json()  # Parse the JSON response
-      aes_data = data['data']
-
-      # Create an embed message
-      embed = discord.Embed(
-          title="AES Data",
-          color=0x00ff00  # You can customize the color here
-      )
-
-      # Add fields to the embed with the fetched data
-      embed.add_field(name="Build", value=aes_data['build'], inline=False)
-      embed.add_field(name="Main Key", value=aes_data['mainKey'], inline=False)
-
-      # Li    mit the number of dynamic keys displayed
-      dynamic_keys = aes_data['dynamicKeys'][:5]  # Display the first 5 keys
-      dynamic_keys_text = "\n".join(
-          f"Filename: {item['pakFilename']}, GUID: {item['pakGuid']}, Key: {item['key']}"
-          for item in dynamic_keys)
-      embed.add_field(name="Dynamic Keys",
-                      value=dynamic_keys_text,
-                      inline=False)
-
-      embed.add_field(name="Updated", value=aes_data['updated'], inline=False)
-      embed.set_footer(
-          text="/fn-aes",
-          icon_url=
-          "https://cdn.discordapp.com/app-icons/1180446437671178391/04de63270eb61b237a4f53709dc4a2fd.png?size=64"
-      )
-      # Send the embedded message as a response
-      await message.channel.send(embed=embed)
-
-    except Exception as e:
-      # Handle any errors that occur during the request or response
-      await message.channel.send(f'An error occurred: {e}')
 
 
 @bot.event
@@ -293,7 +235,8 @@ import aiohttp
 import json
 from pymongo import MongoClient
 
-uri = "mongodb+srv://mtbr29:<password>@mtbr29.y4wregh.mongodb.net/?retryWrites=true&w=majority&appName=mtbr29"
+uri = f"mongodb+srv://mtbr29:{mongobd}@mtbr29.y4wregh.mongodb.net/?retryWrites=true&w=majority&appName=mtbr29"
+
 @bot.tree.command(name='logout', description='Logs out from your epic games account!')
 async def logout(interaction: discord.Interaction):
     try:
