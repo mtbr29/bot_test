@@ -333,7 +333,7 @@ import asyncio
 import aiohttp
 
 @bot.tree.command(name='ghost-equip', description='Fetches data from a specific API')
-async def fechar_api(interaction: discord.Interaction, emote: str):
+async def fechar_api(interaction: discord.Interaction, type: str,name: str):
     try:
         # Send loading message
         loading_message = await interaction.channel.send("Fetching data from API...")
@@ -352,7 +352,7 @@ async def fechar_api(interaction: discord.Interaction, emote: str):
         deviceId = user_data['device_id']
 
         # Construct the URL with query parameters
-        url = f"https://api-xji1.onrender.com/api/v2/party/ghostequip?accountId={accountId}&secret={secret}&deviceId={deviceId}&emote={emote}"
+        url = f"https://api-xji1.onrender.com/api/v2/party/ghostequip?accountId={accountId}&secret={secret}&deviceId={deviceId}&{type}={name}"
 
         async with aiohttp.ClientSession() as session:
             retries = 3  # Number of retries
@@ -363,9 +363,9 @@ async def fechar_api(interaction: discord.Interaction, emote: str):
                         # Process the data as needed
                         
                         # Create an embed
-                        embed = discord.Embed(title=f"Successfully equipped {emote}", color=discord.Color.green())
+                        embed = discord.Embed(title=f"Successfully equipped the {type} :{name}", color=discord.Color.green())
                         embed.set_thumbnail(url="https://www.pngall.com/wp-content/uploads/9/Green-Tick-Vector-PNG-Pic.png")  # Placeholder image URL
-                        embed.add_field(name="Emote", value=emote)
+                        embed.add_field(name="{type}", value={name})
                         embed.add_field(name="Data", value=str(data))
                         
                         # Edit loading message to embed
