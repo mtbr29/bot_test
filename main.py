@@ -35,11 +35,12 @@ bot_owner_ids = [1026891696929255525]
 
 @bot.event
 async def on_message(message):
-  if message.content == "<@1180446437671178391>":
+  if message.content == "za":
     await message.channel.send("hi,how are you!?")
-  elif message.content == "<@1180446437671178391> .help"
-    await message.channel.send("hi,how are you!?")
-
+  elif message.content == "za.help":
+    await message.channel.send("hi,how are you!?2")
+  elif message.content == "za.help2":
+    await message.channel.send("hi,how are you!?3")
 
 @bot.event
 async def on_ready():
@@ -68,7 +69,7 @@ async def item_shop(interaction: discord.Interaction, ):
                           description="give item shop.",
                           color=0x00ff00)
     embed.add_field(name="**Fortnite Item Shop**", value="", inline=False)
-    embed.set_thumbail(url="https://mtbr29.dev/test"
+    embed.set_thumbail(url="https://mtbr29.dev/test")
     embed.set_footer(
         text="/fn-item-shop",
         icon_url=
@@ -154,6 +155,8 @@ async def fortnitebot_status(interaction: discord.Interaction, level: str):
                     elif response.status == 429:    
                         # Retry after a delay
                         await asyncio.sleep(2 ** attempt)
+                    elif response.status == 500:    
+                        await interaction.channel.send("You are not online on fortnite")
                     else:
                         await loading_message.edit(content=f"Failed to fetch data from API. Status code: {response.status}")
                         break  # Break the retry loop on non-retryable error codes
@@ -342,11 +345,11 @@ async def fechar_api(interaction: discord.Interaction, type: str,name: str):
         client = MongoClient(uri, connect=False)
         collection = client.ZapotronBot.deviceAuths
         user_data = collection.find_one({"discord_id": interaction.user.id})
-        
+
         if not user_data:
             await loading_message.edit(content="You need to login first.")
             return
-        
+
         accountId = user_data['account_id']
         secret = user_data['secret']
         deviceId = user_data['device_id']
@@ -361,13 +364,13 @@ async def fechar_api(interaction: discord.Interaction, type: str,name: str):
                     if response.status == 200:
                         data = await response.json()
                         # Process the data as needed
-                        
+
                         # Create an embed
                         embed = discord.Embed(title=f"Successfully equipped the {type} :{name}", color=discord.Color.green())
                         embed.set_thumbnail(url="https://www.pngall.com/wp-content/uploads/9/Green-Tick-Vector-PNG-Pic.png")  # Placeholder image URL
                         embed.add_field(name="{type}", value={name})
                         embed.add_field(name="Data", value=str(data))
-                        
+
                         # Edit loading message to embed
                         await loading_message.edit(content=None, embed=embed)
                         break  # Break the retry loop if successful
