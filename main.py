@@ -37,9 +37,9 @@ bot_owner_ids = [1026891696929255525]
 async def on_message(message):
   if message.content == "za":
     await message.channel.send("hi,how are you!?")
-  elif message.content == "za.help":
+  elif message.content == "z.help":
     await message.channel.send("hi,how are you!?2")
-  elif message.content == "za.help2":
+  elif message.content == "z.help2":
     await message.channel.send("hi,how are you!?3")
 
 @bot.event
@@ -61,21 +61,6 @@ async def on_ready():
     print(e)
 
 
-
-@bot.tree.command(name="fn-item-shop",
-                  description="give item shop")
-async def item_shop(interaction: discord.Interaction, ):
-    embed = discord.Embed(title="fn-shop",
-                          description="give item shop.",
-                          color=0x00ff00)
-    embed.add_field(name="**Fortnite Item Shop**", value="", inline=False)
-    embed.set_thumbail(url="https://mtbr29.dev/test")
-    embed.set_footer(
-        text="/fn-item-shop",
-        icon_url=
-        "https://cdn.discordapp.com/app-icons/1180446437671178391/04de63270eb61b237a4f53709dc4a2fd.png?size=64"
-    )
-    await interaction.response.send_message(embed=embed)
 
 
 @bot.tree.command(name="fn-bot", description="Get a lobby bot.")
@@ -156,7 +141,16 @@ async def fortnitebot_status(interaction: discord.Interaction, level: str):
                         # Retry after a delay
                         await asyncio.sleep(2 ** attempt)
                     elif response.status == 500:    
-                        await interaction.channel.send("You are not online on fortnite")
+                        embed = discord.Embed(title="fn-fake-level",
+                                  description="",
+                                  color=0x00ff00)
+                        embed.add_field(name="Please launch fortnite", value='', inline=False)
+                        embed.set_image(url="https://tenor.com/view/launch-sideways-astra-slide-failure-gif-23032202")
+                        embed.set_footer(
+                            text="/fn-bot",
+                            icon_url="https://cdn.discordapp.com/app-icons/1180446437671178391/04de63270eb61b237a4f53709dc4a2fd.png?size=64"
+                        )
+            await interaction.response.send_message(embed=embed)
                     else:
                         await loading_message.edit(content=f"Failed to fetch data from API. Status code: {response.status}")
                         break  # Break the retry loop on non-retryable error codes
