@@ -150,7 +150,7 @@ async def fortnitebot_status(interaction: discord.Interaction, level: str):
                             text="/fn-bot",
                             icon_url="https://cdn.discordapp.com/app-icons/1180446437671178391/04de63270eb61b237a4f53709dc4a2fd.png?size=64"
                         )
-            await interaction.response.send_message(embed=embed)
+                        await interaction.response.send_message(embed=embed)
                     else:
                         await loading_message.edit(content=f"Failed to fetch data from API. Status code: {response.status}")
                         break  # Break the retry loop on non-retryable error codes
