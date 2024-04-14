@@ -19,7 +19,7 @@ import os
 import aiohttp  # Added aiohttp import
 
 ts = calendar.timegm(time.gmtime())
-
+loading_message = None
 intents = discord.Intents().all()
 bot = commands.Bot(command_prefix="m", intents=intents)
 
@@ -63,7 +63,7 @@ async def on_ready():
 
 
 
-@bot.tree.command(name="fn-bot", description="Get a lobby bot.")
+@bot.tree.command(name="fn-bot", description="Create a lobby bot.")
 async def fortnite_bot(interaction: discord.Interaction, authcode: str):
   try:
     async with aiohttp.ClientSession() as session:
@@ -371,13 +371,20 @@ async def fechar_api(interaction: discord.Interaction, type: str,name: str):
                     elif response.status == 429:
                         # Retry after a delay
                         await asyncio.sleep(2 ** attempt)
+                    elif response.status == 400:
+                      embed = discord.Embed(title="An error has ocured!", color=discord.Color.red())  # Placeholder image URL
+                      embed.add_field(name="please put a valid type:`emote,outfit` or a valid name: `floss`", value="serch command:")
+                    elif response.status == 500:
+                      embed = discord.Embed(title="An error has ocured!", color=discord.Color.red())  # Placeholder image URL
+                      embed.add_field(name="please launch Fortnite", value="launch fortnite:")
                     else:
                         await loading_message.edit(content=f"Failed to fetch data from API. Status code: {response.status}")
                         break  # Break the retry loop on non-retryable error codes
     except Exception as e:
         print('Error:', e)
         try:
-            await loading_message.edit(content='An error occurred while fetching data from the API.')
+          # Send loading message
+          loading_message = await interaction.channel.send("Fetching data from API...")
         except discord.errors.NotFound:
             print("Interaction not found.")
         except Exception as e:
