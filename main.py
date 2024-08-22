@@ -393,4 +393,4 @@ async def fechar_api(interaction: discord.Interaction, type: str,name: str):
 
 
 
-bot.run("MTIwNzIzNTk5NTQyMzA4ODY2MA.G1EhSo.gfWCYUEZm9a1k456H--NkY4xbGTdvN5GCsEHW8")
+bot.run("")
