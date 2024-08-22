@@ -26,7 +26,7 @@ bot = commands.Bot(command_prefix="m", intents=intents)
 client = discord.Client(intents=intents)
 tree = app_commands.CommandTree(client)
 
-uri = "mongodb+srv://k0uvuw:68h6ni@cluster0.ombggir.mongodb.net/?retryWrites=true&w=majority"
+uri = ""
 funFact = ["mtbr"]
 
 mongobd = os.getenv('mongobd')
